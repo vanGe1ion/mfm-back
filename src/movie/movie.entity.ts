@@ -36,8 +36,8 @@ export class Movie extends BaseEntity {
   @Column()
   voteAverage: number;
 
-  @Column('text', { array: true })
-  genres: string[];
+  @Column('int', { array: true })
+  genreIds: number[];
 
   @Column({ default: false })
   isViewed: boolean;
