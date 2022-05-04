@@ -1,6 +1,6 @@
-import { PostgresConnectionOptions } from 'typeorm/driver/postgres/PostgresConnectionOptions';
+import { PostgresConnectionOptions } from "typeorm/driver/postgres/PostgresConnectionOptions";
 
-const ormconfig: PostgresConnectionOptions = {
+const config:PostgresConnectionOptions = {
   type: 'postgres',
   url: process.env.PG_CONNECTION_URL,
   entities: ['dist/**/*.entity{.ts,.js}'],
@@ -12,4 +12,4 @@ const ormconfig: PostgresConnectionOptions = {
   },
 };
 
-export default ormconfig;
+export default config;
