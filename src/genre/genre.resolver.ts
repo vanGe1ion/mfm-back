@@ -16,12 +16,11 @@ export class GenreResolver {
     return await this.genreService.createGenre(createGenreDto);
   }
 
-  @Mutation((returns) => Genre)
+  @Mutation((returns) => Number)
   async removeGenre(
     @Args('removeGenreDto', { type: () => RemoveGenreDto })
     removeGenreDto: RemoveGenreDto,
-  ): Promise<RemoveGenreDto> {
-    await this.genreService.removeGenre(removeGenreDto);
-    return removeGenreDto;
+  ): Promise<number> {
+    return await this.genreService.removeGenre(removeGenreDto);
   }
 }

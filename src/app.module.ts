@@ -5,6 +5,7 @@ import { GraphQLModule } from '@nestjs/graphql';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserModule } from './user/user.module';
 import { GenreModule } from './genre/genre.module';
+import { MovieModule } from './movie/movie.module';
 
 @Module({
   imports: [
@@ -19,6 +20,7 @@ import { GenreModule } from './genre/genre.module';
     }),
     UserModule,
     GenreModule,
+    MovieModule,
   ],
 })
 export class AppModule {}

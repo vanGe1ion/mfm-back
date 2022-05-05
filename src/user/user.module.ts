@@ -4,9 +4,10 @@ import { UserResolver } from './user.resolver';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from './user.entity';
 import { GenreModule } from 'src/genre/genre.module';
+import { MovieModule } from 'src/movie/movie.module';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([User]), GenreModule],
+  imports: [TypeOrmModule.forFeature([User]), GenreModule, MovieModule],
   providers: [UserService, UserResolver],
 })
 export class UserModule {}

@@ -19,8 +19,9 @@ export class GenreService {
     return await this.genreRepository.save({ ...createGenreDto });
   }
 
-  async removeGenre(removeGenreDto: RemoveGenreDto): Promise<RemoveGenreDto> {
-    await this.genreRepository.delete({ ...removeGenreDto });
-    return removeGenreDto;
+  async removeGenre(removeGenreDto: RemoveGenreDto): Promise<number> {
+    const id = (await this.genreRepository.findOneOrFail({...removeGenreDto})).id;
+    await this.genreRepository.delete({ id });
+    return id;
   }
 }

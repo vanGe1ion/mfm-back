@@ -17,15 +17,15 @@ export class Genre extends BaseEntity {
   id: number;
 
   @Field((type) => Int)
-  @Column()
+  @Column('int')
   genreId: number;
 
   @Field((type) => Int)
-  @Column()
+  @Column('int')
   userId: number;
 
+  @Field((type) => User)
   @ManyToOne(() => User, (user) => user.genres)
   @JoinColumn({ name: 'userId' })
-  @Field((type) => User)
   user: User;
 }

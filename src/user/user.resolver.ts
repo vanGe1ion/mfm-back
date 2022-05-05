@@ -8,6 +8,7 @@ import {
   Resolver,
 } from '@nestjs/graphql';
 import { Genre } from 'src/genre/genre.entity';
+import { Movie } from 'src/movie/movie.entity';
 import { CreateUserDto } from './dto/create-user.dto';
 import { User } from './user.entity';
 import { UserService } from './user.service';
@@ -34,5 +35,10 @@ export class UserResolver {
   @ResolveField((returns) => [Genre])
   async genres(@Parent() user: User): Promise<Genre[]> {
     return await this.userService.getGenres(user.id);
+  }
+
+  @ResolveField((returns) => [Movie])
+  async movies(@Parent() user: User): Promise<Movie[]> {
+    return await this.userService.getMovies(user.id);
   }
 }
