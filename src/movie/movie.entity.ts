@@ -57,9 +57,11 @@ export class Movie extends BaseEntity {
   isViewed: boolean;
 
   @Field((type) => Int)
-  userId:number;
+  @Column()
+  userId: number;
 
-  @JoinColumn({name: "userId"})
   @ManyToOne(() => User, (user) => user.movies)
+  @JoinColumn({ name: 'userId' })
+  @Field((type) => User)
   user: User;
 }

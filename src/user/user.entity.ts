@@ -17,22 +17,18 @@ export class User extends BaseEntity {
   id: number;
 
   @Field()
-  @Column({ unique: true, nullable: false })
+  @Column({ unique: true })
   login: string;
 
   @Field()
   @Column()
   password: string;
 
-  @Field((type) => [Genre])
-  @OneToMany(() => Genre, (genre) => genre.user, {
-    cascade: true,
-  })
-  genres: Genre[];
+  @Field((type) => [Genre], { nullable: true })
+  @OneToMany(() => Genre, (genre) => genre.user)
+  genres?: Genre[];
 
-  @Field((type) => [Movie])
-  @OneToMany(() => Movie, (movie) => movie.user, {
-    cascade: true,
-  })
-  movies: Movie[];
+  @Field((type) => [Movie], { nullable: true })
+  @OneToMany(() => Movie, (movie) => movie.user)
+  movies?: Movie[];
 }

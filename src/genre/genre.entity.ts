@@ -21,9 +21,11 @@ export class Genre extends BaseEntity {
   genreId: number;
 
   @Field((type) => Int)
-  userId:number;
+  @Column()
+  userId: number;
 
-  @JoinColumn({name: "userId"})
   @ManyToOne(() => User, (user) => user.genres)
+  @JoinColumn({ name: 'userId' })
+  @Field((type) => User)
   user: User;
 }
