@@ -1,5 +1,5 @@
 import { Args, Mutation, Resolver } from '@nestjs/graphql';
-import CreateMovieDto from './dto/create-movie.dto';
+import AddMovieDto from './dto/add-movie.dto';
 import RemoveMovieDto from './dto/remove-movie.dto';
 import UpdateMovieDto from './dto/update-movie.dto';
 import { Movie } from './movie.entity';
@@ -10,11 +10,11 @@ export class MovieResolver {
   constructor(private movieService: MovieService) {}
 
   @Mutation((returns) => Movie)
-  async createMovie(
-    @Args('createMovieDto', { type: () => CreateMovieDto })
-    createMovieDto: CreateMovieDto,
+  async addMovie(
+    @Args('addMovieDto', { type: () => AddMovieDto })
+    addMovieDto: AddMovieDto,
   ): Promise<Movie> {
-    return await this.movieService.createMovie(createMovieDto);
+    return await this.movieService.addMovie(addMovieDto);
   }
 
   @Mutation((returns) => Movie)

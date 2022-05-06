@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { CreateGenreDto } from './dto/create-genre.dto';
+import { AddGenreDto } from './dto/add-genre.dto';
 import { RemoveGenreDto } from './dto/remove-genre.dto';
 import { Genre } from './genre.entity';
 
@@ -15,8 +15,8 @@ export class GenreService {
     return await this.genreRepository.find({ userId });
   }
 
-  async createGenre(createGenreDto: CreateGenreDto): Promise<Genre> {
-    return await this.genreRepository.save({ ...createGenreDto });
+  async addGenre(addGenreDto: AddGenreDto): Promise<Genre> {
+    return await this.genreRepository.save({ ...addGenreDto });
   }
 
   async removeGenre(removeGenreDto: RemoveGenreDto): Promise<number> {
