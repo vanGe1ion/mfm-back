@@ -1,3 +1,2 @@
-const DEFAULT_SERVER_PORT = 5000;
-export const SERVER_PORT =
-  Number(process.env.SERVER_PORT) || DEFAULT_SERVER_PORT;
+export const DEFAULT_SERVER_PORT = 5000;
+export const TMDB_SEARCH_PAGE_LIMIT = 5;
