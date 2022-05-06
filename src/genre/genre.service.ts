@@ -16,11 +16,12 @@ export class GenreService {
   }
 
   async addGenre(addGenreDto: AddGenreDto): Promise<Genre> {
-    return await this.genreRepository.save({ ...addGenreDto });
+    return await this.genreRepository.save(addGenreDto);
   }
 
   async removeGenre(removeGenreDto: RemoveGenreDto): Promise<number> {
-    const id = (await this.genreRepository.findOneOrFail({...removeGenreDto})).id;
+    const genre = await this.genreRepository.findOneOrFail(removeGenreDto);
+    const { id } = genre;
     await this.genreRepository.delete({ id });
     return id;
   }

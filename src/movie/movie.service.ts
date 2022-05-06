@@ -13,11 +13,12 @@ export class MovieService {
   ) {}
 
   async addMovie(addMovieDto: AddMovieDto): Promise<Movie> {
-    return await this.movieRepository.save({ ...addMovieDto });
+    return await this.movieRepository.save(addMovieDto);
   }
 
   async removeMovie(removeMovieDto: RemoveMovieDto): Promise<number> {
-    const id = (await this.movieRepository.findOneOrFail({ ...removeMovieDto })).id;
+    const movie = await this.movieRepository.findOneOrFail(removeMovieDto);
+    const { id } = movie;
     await this.movieRepository.delete({ id });
     return id;
   }
@@ -28,10 +29,7 @@ export class MovieService {
 
   async updateMovie(updateMovieDto: UpdateMovieDto): Promise<Movie> {
     const { movieId, userId } = updateMovieDto;
-    await this.movieRepository.update(
-      { movieId, userId },
-      { ...updateMovieDto },
-    );
+    await this.movieRepository.update({ movieId, userId }, updateMovieDto);
     return await this.movieRepository.findOneOrFail({ movieId, userId });
   }
 }
