@@ -1,47 +1,67 @@
+import { Field, Float, ID, Int, ObjectType } from '@nestjs/graphql';
 import { User } from 'src/user/user.entity';
 import {
   BaseEntity,
   Column,
   Entity,
+  JoinColumn,
   ManyToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
+@ObjectType()
 @Entity('movie')
 export class Movie extends BaseEntity {
+  @Field((type) => ID)
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ nullable: false })
+  @Field((type) => Int)
+  @Column('int')
   movieId: number;
 
-  @Column({ nullable: false })
+  @Field()
+  @Column('varchar')
   title: string;
 
-  @Column({ nullable: false })
+  @Field()
+  @Column('varchar')
   originalTitle: string;
 
-  @Column()
+  @Field((type) => Int)
+  @Column('int')
   releaseYear: number;
 
-  @Column()
+  @Field()
+  @Column('varchar')
   overview: string;
 
-  @Column()
+  @Field()
+  @Column('varchar')
   posterPath: string;
 
-  @Column()
+  @Field((type) => Int)
+  @Column('int')
   voteCount: number;
 
-  @Column()
+  @Field((type) => Float)
+  @Column('float')
   voteAverage: number;
 
+  @Field((type) => [Int])
   @Column('int', { array: true })
   genreIds: number[];
 
-  @Column({ default: false })
+  @Field({ defaultValue: false })
+  @Column('bool', { default: false })
   isViewed: boolean;
 
+  @Field((type) => Int)
+  @Column('int')
+  userId: number;
+
+  @Field((type) => User)
   @ManyToOne(() => User, (user) => user.movies)
+  @JoinColumn({ name: 'userId' })
   user: User;
 }

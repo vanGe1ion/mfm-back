@@ -1,3 +1,4 @@
+import { Field, ID, ObjectType } from '@nestjs/graphql';
 import { Genre } from 'src/genre/genre.entity';
 import { Movie } from 'src/movie/movie.entity';
 import {
@@ -8,24 +9,26 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
+@ObjectType()
 @Entity('user')
 export class User extends BaseEntity {
+  @Field((type) => ID)
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ unique: true, nullable: false })
+  @Field()
+  @Column('varchar', { unique: true })
   login: string;
 
-  @Column()
+  @Field()
+  @Column('varchar')
   password: string;
 
-  @OneToMany(() => Genre, (genre) => genre.user, {
-    cascade: true,
-  })
-  genres: Genre[];
+  @Field((type) => [Genre], { nullable: true })
+  @OneToMany(() => Genre, (genre) => genre.user)
+  genres?: Genre[];
 
-  @OneToMany(() => Movie, (movie) => movie.user, {
-    cascade: true,
-  })
-  movies: Movie[];
+  @Field((type) => [Movie], { nullable: true })
+  @OneToMany(() => Movie, (movie) => movie.user)
+  movies?: Movie[];
 }
