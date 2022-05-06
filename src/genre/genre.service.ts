@@ -20,8 +20,7 @@ export class GenreService {
   }
 
   async removeGenre(removeGenreDto: RemoveGenreDto): Promise<number> {
-    const genre = await this.genreRepository.findOneOrFail(removeGenreDto);
-    const { id } = genre;
+    const { id } = await this.genreRepository.findOneOrFail(removeGenreDto);
     await this.genreRepository.delete({ id });
     return id;
   }

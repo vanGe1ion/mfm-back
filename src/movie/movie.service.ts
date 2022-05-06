@@ -17,8 +17,7 @@ export class MovieService {
   }
 
   async removeMovie(removeMovieDto: RemoveMovieDto): Promise<number> {
-    const movie = await this.movieRepository.findOneOrFail(removeMovieDto);
-    const { id } = movie;
+    const { id } = await this.movieRepository.findOneOrFail(removeMovieDto);
     await this.movieRepository.delete({ id });
     return id;
   }
