@@ -1,6 +1,4 @@
-import { ApiMovie } from './object-types';
-
-export interface moviesAPIRequestParams {
+export interface IGetMoviesTMDBParams {
   with_genres?: string;
   primary_release_year?: number;
   'vote_average.gte'?: number;
@@ -8,7 +6,7 @@ export interface moviesAPIRequestParams {
   page?: number;
 }
 
-export interface moviesAPIRsponseParams {
+export interface IGetMoviesTMDBResponse {
   results: TMDBMovie[];
   page: number;
   total_pages: number;
@@ -30,23 +28,4 @@ export interface TMDBMovie {
   vote_count?: number;
   video?: boolean;
   vote_average?: number;
-}
-
-export interface IGetMoviesParams {
-  withGenres?: number[];
-  primaryReleaseYear?: number;
-  voteAverage?: IRange;
-  page?: number;
-}
-
-interface IRange {
-  gte?: number;
-  lte?: number;
-}
-
-export interface IGetMoviesResponse {
-  movies: ApiMovie[];
-  page: number;
-  totalResults: number;
-  totalPages: number;
 }
