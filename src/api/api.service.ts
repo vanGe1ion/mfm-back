@@ -59,7 +59,7 @@ export class ApiService {
   ): IGetMoviesTMDBParams => {
     const { withGenres, primaryReleaseYear, voteAverage, page } = appParams;
     return {
-      with_genres: withGenres?.join(', '),
+      with_genres: withGenres?.join(' | '),
       primary_release_year: primaryReleaseYear,
       'vote_average.gte': voteAverage?.gte,
       'vote_average.lte': voteAverage?.lte,
