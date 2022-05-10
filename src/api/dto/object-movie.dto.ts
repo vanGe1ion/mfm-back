@@ -3,7 +3,7 @@ import { Field, Int, Float, ObjectType } from '@nestjs/graphql';
 @ObjectType()
 export default class ApiMovie {
   @Field((type) => Int)
-  id: number;
+  movieId: number;
 
   @Field()
   title: string;

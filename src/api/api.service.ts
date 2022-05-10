@@ -93,7 +93,7 @@ export class ApiService {
           originalTitle: original_title ?? '',
           voteCount: vote_count ?? null,
           voteAverage: vote_average ?? null,
-          id: id!,
+          movieId: id!,
           overview: overview ?? '',
           title: title!,
         };

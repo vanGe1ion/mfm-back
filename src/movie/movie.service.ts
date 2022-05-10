@@ -23,7 +23,10 @@ export class MovieService {
   }
 
   async getMoviesOfUser(userId: number): Promise<Movie[]> {
-    return await this.movieRepository.find({ userId });
+    return await this.movieRepository.find({
+      where: { userId },
+      order: { movieId: 'ASC' },
+    });
   }
 
   async updateMovie(updateMovieDto: UpdateMovieDto): Promise<Movie> {
