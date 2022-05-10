@@ -20,6 +20,6 @@ export default class FindMoviesInputDto {
   @Field((type) => Range, { nullable: true })
   voteAverage?: Range;
 
-  @Field((type) => [Int], { nullable: true })
+  @Field((type) => Int, { nullable: true })
   page?: number;
 }
