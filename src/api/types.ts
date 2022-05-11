@@ -15,17 +15,12 @@ export interface IGetMoviesTMDBResponse {
 
 export interface TMDBMovie {
   poster_path?: string | null;
-  adult?: boolean;
-  overview?: string;
+  overview: string;
   release_date?: string;
   genre_ids: number[];
-  id?: number;
-  original_title?: string;
-  original_language?: string;
-  title?: string;
-  backdrop_path?: string;
-  popularity?: number;
-  vote_count?: number;
-  video?: boolean;
-  vote_average?: number;
+  id: number;
+  original_title: string;
+  title: string;
+  vote_count: number;
+  vote_average: number;
 }

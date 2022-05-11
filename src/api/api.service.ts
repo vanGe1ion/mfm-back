@@ -46,11 +46,10 @@ export class ApiService {
     try {
       return await callback();
     } catch (error) {
-      if (error instanceof Error)
-        throw new HttpException(
-          `Access TMDB resource failed: ${error.message}`,
-          HttpStatus.FAILED_DEPENDENCY,
-        );
+      throw new HttpException(
+        `Access TMDB resource failed: ${error.message}`,
+        HttpStatus.FAILED_DEPENDENCY,
+      );
     }
   }
 
@@ -70,41 +69,23 @@ export class ApiService {
   private toFindMoviesOutputDto = (
     TMDBResponse: IGetMoviesTMDBResponse,
   ): FindMoviesOutputDto => {
-    const { results, page, total_results, total_pages } = TMDBResponse;
+    const { results, ...rest } = TMDBResponse;
 
-    const movies: ApiMovie[] = results.map(
-      ({
-        poster_path,
-        release_date,
-        genre_ids,
-        original_title,
-        vote_count,
-        vote_average,
-        id,
-        overview,
-        title,
-      }: TMDBMovie) => {
+    const newResult: ApiMovie[] = results.map(
+      ({ release_date, poster_path, ...resultRest }: TMDBMovie) => {
         return {
-          posterPath: poster_path ?? '',
-          releaseYear: release_date
+          poster_path: poster_path ?? '',
+          release_year: release_date
             ? new Date(release_date).getFullYear()
             : null,
-          genreIds: Array.from(genre_ids),
-          originalTitle: original_title ?? '',
-          voteCount: vote_count ?? null,
-          voteAverage: vote_average ?? null,
-          movieId: id!,
-          overview: overview ?? '',
-          title: title!,
+          ...resultRest,
         };
       },
     );
 
     return {
-      movies,
-      page,
-      totalResults: total_results,
-      totalPages: total_pages,
+      result: newResult,
+      ...rest,
     };
   };
 }

@@ -2,30 +2,30 @@ import { Field, Int, Float, ObjectType } from '@nestjs/graphql';
 
 @ObjectType()
 export default class ApiMovie {
-  @Field((type) => Int)
-  movieId: number;
+  @Field((type) => Int, {name: "movieId"})
+  id: number;
 
   @Field()
   title: string;
 
-  @Field()
-  originalTitle: string;
+  @Field({name: "originalTitle"})
+  original_title: string;
 
-  @Field((type) => Int, { nullable: true })
-  releaseYear: number;
+  @Field((type) => Int, { nullable: true , name:"releaseYear"})
+  release_year: number;
 
   @Field()
   overview: string;
 
-  @Field()
-  posterPath: string;
+  @Field({name: "posterPath"})
+  poster_path: string;
 
-  @Field((type) => [Int])
-  genreIds: number[];
+  @Field((type) => [Int], {name: "genreIds"})
+  genre_ids: number[];
 
-  @Field((type) => Int, { nullable: true })
-  voteCount: number;
+  @Field((type) => Int, {name: "voteCount"})
+  vote_count: number;
 
-  @Field((type) => Float, { nullable: true })
-  voteAverage: number;
+  @Field((type) => Float, {name: "voteAverage"})
+  vote_average: number;
 }
