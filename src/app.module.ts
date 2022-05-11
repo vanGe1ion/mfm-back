@@ -6,21 +6,23 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserModule } from './user/user.module';
 import { GenreModule } from './genre/genre.module';
 import { MovieModule } from './movie/movie.module';
+import { ApiModule } from './api/api.module';
 
 @Module({
   imports: [
-    ConfigModule.forRoot({ envFilePath: '.env' }),
+    ConfigModule.forRoot({ envFilePath: '.env', isGlobal: true }),
     TypeOrmModule.forRoot(),
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
       autoSchemaFile: 'src/schema.gql',
       sortSchema: true,
-      playground: true,
-      debug: true,
+      playground: false,
+      debug: false,
     }),
     UserModule,
     GenreModule,
     MovieModule,
+    ApiModule,
   ],
 })
 export class AppModule {}

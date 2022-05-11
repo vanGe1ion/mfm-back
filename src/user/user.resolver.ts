@@ -10,6 +10,7 @@ import {
 import { Genre } from 'src/genre/genre.entity';
 import { Movie } from 'src/movie/movie.entity';
 import { CreateUserDto } from './dto/create-user.dto';
+import SignInUserDto from './dto/sign-in-user.dto';
 import { User } from './user.entity';
 import { UserService } from './user.service';
 
@@ -22,6 +23,14 @@ export class UserResolver {
     @Args('id', { type: () => Int }) id: number,
   ): Promise<User> {
     return await this.userService.getUserById(id);
+  }
+
+  @Query((returns) => User)
+  async signInUser(
+    @Args('signInUserDto', { type: () => SignInUserDto })
+    signInUserDto: SignInUserDto,
+  ): Promise<User> {
+    return await this.userService.signInUser(signInUserDto);
   }
 
   @Mutation((returns) => User)
