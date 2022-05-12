@@ -7,4 +7,7 @@ export default class ApiGenre {
 
   @Field()
   name: string;
+
+  @Field({ nullable: true })
+  isFavourite?: boolean;
 }

@@ -10,10 +10,14 @@ import ApiGenre from './dto/object-genre.dto';
 import FindMoviesInputDto from './dto/find-movies-input.dto';
 import FindMoviesOutputDto from './dto/find-movies-output.dto';
 import ApiMovie from './dto/object-movie.dto';
+import { GenreService } from 'src/genre/genre.service';
 
 @Injectable()
 export class ApiService {
-  constructor(private configService: ConfigService) {}
+  constructor(
+    private configService: ConfigService,
+    private genreService: GenreService,
+  ) {}
 
   private movieDBClient = axios.create({
     baseURL: 'https://api.themoviedb.org/3/',
@@ -28,6 +32,15 @@ export class ApiService {
       const response = await this.movieDBClient.get('/genre/movie/list');
       return await response.data.genres;
     });
+  }
+
+  async getGenresWithFavourites(userId: number): Promise<ApiGenre[]> {
+    const favouriteGenres = await this.genreService.getGenresOfUser(userId);
+    const favGenresIds = favouriteGenres.map(({ genreId }) => genreId);
+    return (await this.getGenres()).map((genre) => ({
+      ...genre,
+      isFavourite: favGenresIds.includes(genre.id),
+    }));
   }
 
   async findMovies(
