@@ -1,8 +1,7 @@
-import { Field, Float, InputType, Int } from "@nestjs/graphql";
+import { Field, Float, InputType, Int } from '@nestjs/graphql';
 
 @InputType()
-export default class AddMovieDto{
-
+export default class AddMovieDto {
   @Field((type) => Int)
   movieId: number;
 
@@ -27,8 +26,8 @@ export default class AddMovieDto{
   @Field((type) => Float)
   voteAverage: number;
 
-  @Field((type) => [Int])
-  genreIds: number[];
+  @Field((type) => [String])
+  genres: string[];
 
   @Field((type) => Int)
   userId: number;

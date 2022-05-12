@@ -16,7 +16,7 @@ import { ApiModule } from './api/api.module';
       driver: ApolloDriver,
       autoSchemaFile: 'src/schema.gql',
       sortSchema: true,
-      playground: false,
+      playground: true,
       debug: false,
     }),
     UserModule,
