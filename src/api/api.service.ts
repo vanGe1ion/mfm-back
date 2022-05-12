@@ -11,12 +11,14 @@ import FindMoviesInputDto from './dto/find-movies-input.dto';
 import FindMoviesOutputDto from './dto/find-movies-output.dto';
 import ApiMovie from './dto/object-movie.dto';
 import { GenreService } from 'src/genre/genre.service';
+import { MovieService } from 'src/movie/movie.service';
 
 @Injectable()
 export class ApiService {
   constructor(
     private configService: ConfigService,
     private genreService: GenreService,
+    private movieService: MovieService,
   ) {}
 
   private movieDBClient = axios.create({
@@ -36,10 +38,10 @@ export class ApiService {
 
   async getGenresWithFavourites(userId: number): Promise<ApiGenre[]> {
     const favouriteGenres = await this.genreService.getGenresOfUser(userId);
-    const favGenresIds = favouriteGenres.map(({ genreId }) => genreId);
+    const favGenreIds = favouriteGenres.map(({ genreId }) => genreId);
     return (await this.getGenres()).map((genre) => ({
       ...genre,
-      isFavourite: favGenresIds.includes(genre.id),
+      isFavourite: favGenreIds.includes(genre.id),
     }));
   }
 
@@ -53,6 +55,26 @@ export class ApiService {
       });
       return this.toFindMoviesOutputDto(response.data);
     });
+  }
+
+  async findMoviesWithFavourites(
+    userId: number,
+    findMoviesInputDto: FindMoviesInputDto,
+  ): Promise<FindMoviesOutputDto> {
+    const genres = await this.getGenres();
+    const favoriteMovies = await this.movieService.getMoviesOfUser(userId);
+    const favMovieIds = favoriteMovies.map(({ movieId }) => movieId);
+    const { result, ...rest } = await this.findMovies(findMoviesInputDto);
+    return {
+      ...rest,
+      result: result.map((movie) => ({
+        ...movie,
+        is_favourite: favMovieIds.includes(movie.id),
+        genres: movie.genre_ids.map(
+          (genreId) => genres.find((genre) => genre.id === genreId).name,
+        ),
+      })),
+    };
   }
 
   private async errorHandler(callback: () => Promise<any>): Promise<any> {

@@ -48,9 +48,9 @@ export class Movie extends BaseEntity {
   @Column('float')
   voteAverage: number;
 
-  @Field((type) => [Int])
-  @Column('int', { array: true })
-  genreIds: number[];
+  @Field((type) => [String], { defaultValue: [] })
+  @Column('varchar', { array: true, default: [] })
+  genres: string[];
 
   @Field({ defaultValue: false })
   @Column('bool', { default: false })

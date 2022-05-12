@@ -27,4 +27,17 @@ export class ApiResolver {
   ): Promise<FindMoviesOutputDto> {
     return await this.apiService.findMovies(findMoviesInputDto);
   }
+
+  @Query((returns) => FindMoviesOutputDto)
+  async findMoviesWithFavourites(
+    @Args('userId', { type: () => Int })
+    userId: number,
+    @Args('findMoviesInputDto', { type: () => FindMoviesInputDto })
+    findMoviesInputDto: FindMoviesInputDto,
+  ): Promise<FindMoviesOutputDto> {
+    return await this.apiService.findMoviesWithFavourites(
+      userId,
+      findMoviesInputDto,
+    );
+  }
 }

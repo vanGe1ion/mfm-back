@@ -28,4 +28,10 @@ export default class ApiMovie {
 
   @Field((type) => Float, { name: 'voteAverage' })
   vote_average: number;
+
+  @Field((type) => [String], { nullable: true })
+  genres?: string[];
+
+  @Field({ name: 'isFavourite', nullable: true })
+  is_favourite?: boolean;
 }
