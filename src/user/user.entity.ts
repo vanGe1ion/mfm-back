@@ -1,4 +1,4 @@
-import { Field, ID, ObjectType } from '@nestjs/graphql';
+import { Field, ID, Int, ObjectType } from '@nestjs/graphql';
 import { Genre } from 'src/genre/genre.entity';
 import { Movie } from 'src/movie/movie.entity';
 import {
@@ -12,7 +12,7 @@ import {
 @ObjectType()
 @Entity('user')
 export class User extends BaseEntity {
-  @Field((type) => ID)
+  @Field((type) => Int)
   @PrimaryGeneratedColumn()
   id: number;
 
