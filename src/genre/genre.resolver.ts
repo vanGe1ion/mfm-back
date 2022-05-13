@@ -1,6 +1,6 @@
-import { Args, Mutation, Resolver } from '@nestjs/graphql';
-import { AddGenreDto } from './dto/add-genre.dto';
-import { RemoveGenreDto } from './dto/remove-genre.dto';
+import { Args, Int, Mutation, Resolver } from '@nestjs/graphql';
+import CurrentUserDto from 'src/auth/dto/current-user.dto';
+import { CurrentUser } from 'src/decorators/current-user.decorator';
 import { Genre } from './genre.entity';
 import { GenreService } from './genre.service';
 
@@ -10,17 +10,19 @@ export class GenreResolver {
 
   @Mutation((returns) => Genre)
   async addGenre(
-    @Args('addGenreDto', { type: () => AddGenreDto })
-    addGenreDto: AddGenreDto,
+    @CurrentUser() user: CurrentUserDto,
+    @Args('genreId', { type: () => Int })
+    genreId: number,
   ): Promise<Genre> {
-    return await this.genreService.addGenre(addGenreDto);
+    return await this.genreService.addGenre(user.id, genreId);
   }
 
   @Mutation((returns) => Number)
   async removeGenre(
-    @Args('removeGenreDto', { type: () => RemoveGenreDto })
-    removeGenreDto: RemoveGenreDto,
+    @CurrentUser() user: CurrentUserDto,
+    @Args('genreId', { type: () => Int })
+    genreId: number,
   ): Promise<number> {
-    return await this.genreService.removeGenre(removeGenreDto);
+    return await this.genreService.removeGenre(user.id, genreId);
   }
 }
