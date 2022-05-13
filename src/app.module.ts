@@ -7,6 +7,7 @@ import { UserModule } from './user/user.module';
 import { GenreModule } from './genre/genre.module';
 import { MovieModule } from './movie/movie.module';
 import { ApiModule } from './api/api.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -17,12 +18,13 @@ import { ApiModule } from './api/api.module';
       autoSchemaFile: 'src/schema.gql',
       sortSchema: true,
       playground: true,
-      debug: false,
+      debug: true,
     }),
     UserModule,
     GenreModule,
     MovieModule,
     ApiModule,
+    AuthModule,
   ],
 })
 export class AppModule {}

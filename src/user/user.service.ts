@@ -25,6 +25,10 @@ export class UserService {
     return await this.userRepository.findOneOrFail(signInUserDto);
   }
 
+  async getUserByLogin(login: string): Promise<User> {
+    return await this.userRepository.findOne({ where: { login } });
+  }
+
   async createUser(createUserDto: CreateUserDto): Promise<User> {
     return await this.userRepository.save({ ...createUserDto });
   }
