@@ -6,7 +6,6 @@ import { Movie } from 'src/movie/movie.entity';
 import { MovieService } from 'src/movie/movie.service';
 import { Repository } from 'typeorm';
 import { CreateUserDto } from './dto/create-user.dto';
-import SignInUserDto from './dto/sign-in-user.dto';
 import { User } from './user.entity';
 
 @Injectable()
@@ -21,8 +20,8 @@ export class UserService {
     return await this.userRepository.findOneOrFail(id);
   }
 
-  async signInUser(signInUserDto: SignInUserDto): Promise<User> {
-    return await this.userRepository.findOneOrFail(signInUserDto);
+  async getUserByLogin(login: string): Promise<User> {
+    return await this.userRepository.findOne({ login });
   }
 
   async createUser(createUserDto: CreateUserDto): Promise<User> {

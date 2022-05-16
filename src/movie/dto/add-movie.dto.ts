@@ -28,7 +28,4 @@ export default class AddMovieDto {
 
   @Field((type) => [String])
   genres: string[];
-
-  @Field((type) => Int)
-  userId: number;
 }

@@ -5,9 +5,6 @@ export default class UpdateMovieDto {
   @Field((type) => Int)
   movieId: number;
 
-  @Field((type) => Int)
-  userId: number;
-
   @Field()
   isViewed: boolean;
 }
