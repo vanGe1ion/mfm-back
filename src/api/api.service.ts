@@ -12,6 +12,7 @@ import FindMoviesOutputDto from './dto/find-movies-output.dto';
 import ApiMovie from './dto/object-movie.dto';
 import { GenreService } from 'src/genre/genre.service';
 import { MovieService } from 'src/movie/movie.service';
+import { TMDB_LANGUAGE } from 'src/config';
 
 @Injectable()
 export class ApiService {
@@ -25,7 +26,7 @@ export class ApiService {
     baseURL: 'https://api.themoviedb.org/3/',
     params: {
       api_key: this.configService.get<string>('TMDB_API_KEY'),
-      language: 'en-EN',
+      language: TMDB_LANGUAGE,
     },
   });
 
