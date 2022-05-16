@@ -1,4 +1,4 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common';
+import { Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
 import { UserService } from 'src/user/user.service';
 import UserSignInDto from './dto/sign-in.dto';
 import { JwtService } from '@nestjs/jwt';
@@ -15,12 +15,14 @@ export class AuthService {
     const { login, password } = signInDto;
     const user = await this.userService.getUserByLogin(login);
 
-    if (user && user.password === password) {
+    if(!user)
+      throw new NotFoundException('User with such login was not found');
+    else if (user.password === password) {
       const payload = { login, sub: user.id };
       return {
-        access_token: this.jwtService.sign(payload),
+        accessToken: this.jwtService.sign(payload),
       };
     }
-    throw new UnauthorizedException('Uncorrect login or password');
+    throw new UnauthorizedException('Invalid password');
   }
 }

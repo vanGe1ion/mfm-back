@@ -21,7 +21,7 @@ export class UserService {
   }
 
   async getUserByLogin(login: string): Promise<User> {
-    return await this.userRepository.findOne({ where: { login } });
+    return await this.userRepository.findOne({ login });
   }
 
   async createUser(createUserDto: CreateUserDto): Promise<User> {
