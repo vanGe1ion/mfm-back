@@ -1,16 +1,17 @@
 import {
   Args,
-  Int,
   Mutation,
   Parent,
   Query,
   ResolveField,
   Resolver,
 } from '@nestjs/graphql';
+import CurrentUserDto from 'src/auth/dto/current-user.dto';
+import { CurrentUser } from 'src/decorators/current-user.decorator';
+import { Public } from 'src/decorators/public.decorator';
 import { Genre } from 'src/genre/genre.entity';
 import { Movie } from 'src/movie/movie.entity';
 import { CreateUserDto } from './dto/create-user.dto';
-import SignInUserDto from './dto/sign-in-user.dto';
 import { User } from './user.entity';
 import { UserService } from './user.service';
 
@@ -20,19 +21,12 @@ export class UserResolver {
 
   @Query((returns) => User)
   async getUserById(
-    @Args('id', { type: () => Int }) id: number,
+    @CurrentUser() user: CurrentUserDto
   ): Promise<User> {
-    return await this.userService.getUserById(id);
+    return await this.userService.getUserById(user.id);
   }
 
-  @Query((returns) => User)
-  async signInUser(
-    @Args('signInUserDto', { type: () => SignInUserDto })
-    signInUserDto: SignInUserDto,
-  ): Promise<User> {
-    return await this.userService.signInUser(signInUserDto);
-  }
-
+  @Public()
   @Mutation((returns) => User)
   async createUser(
     @Args('createUserDto', { type: () => CreateUserDto })

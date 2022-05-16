@@ -9,5 +9,6 @@ import { MovieModule } from 'src/movie/movie.module';
 @Module({
   imports: [TypeOrmModule.forFeature([User]), GenreModule, MovieModule],
   providers: [UserService, UserResolver],
+  exports: [UserService],
 })
 export class UserModule {}
