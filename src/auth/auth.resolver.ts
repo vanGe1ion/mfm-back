@@ -13,6 +13,6 @@ export class AuthResolver {
   async signIn(
     @Args('signInDto', { type: () => SignInDto }) signInDto: SignInDto,
   ) {
-    return await this.authService.signIn(signInDto);
+    return await this.authService.login(signInDto);
   }
 }
