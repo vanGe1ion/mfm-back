@@ -10,7 +10,7 @@ export class AuthResolver {
 
   @Public()
   @Query((returns) => AccessTokenDto)
-  async signIn(
+  async login(
     @Args('signInDto', { type: () => SignInDto }) signInDto: SignInDto,
   ) {
     return await this.authService.login(signInDto);
